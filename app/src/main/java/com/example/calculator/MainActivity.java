@@ -33,14 +33,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Button button = (Button) v;
+                String buttonText = button.getText().toString();
                 if (button.getId() == R.id.btnDecimal) {
                     if (!currentNumber.contains(".")) {
-                        currentNumber += button.getText().toString();
+                        currentNumber += buttonText;
                     }
                 } else {
-                    currentNumber += button.getText().toString();
+                    currentNumber += buttonText;
                 }
-                tvResult.setText(currentNumber);
+                tvResult.setText(tvResult.getText().toString() + buttonText);
             }
         };
 
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     Button button = (Button) v;
                     operator = button.getText().toString();
                     isOperatorClicked = true;
+                    tvResult.setText(tvResult.getText().toString() + " " + operator + " ");
                 }
             }
         };
@@ -83,9 +85,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isOperatorClicked && !currentNumber.isEmpty()) {
                     double secondNumber = Double.parseDouble(currentNumber);
-                    tvResult.setText(firstNumber + operator + secondNumber);
                     double result = performCalculation(secondNumber);
-                    tvResult.setText(String.valueOf(result));
+                    tvResult.setText(tvResult.getText().toString() + " = " + result);
                     resetCalculatorAfterResult(result);
                 }
             }
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         operator = "";
         firstNumber = 0.0;
         isOperatorClicked = false;
-        tvResult.setText("0");
+        tvResult.setText("");
     }
 
     private void resetCalculatorAfterResult(double result) {
